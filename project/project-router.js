@@ -50,7 +50,8 @@ router.post('/:id/tasks', (req, res) => {
   
     Project.findById(id)
     .then(item => {
-      if (item.length) {
+        console.log(item)
+      if (item.id === req.body.project_id) {
         Project.addTask(taskData, id)
         .then(task => {
           res.status(201).json(task);
