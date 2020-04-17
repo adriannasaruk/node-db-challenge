@@ -65,13 +65,23 @@ router.post('/:id/tasks', (req, res) => {
     });
   });
 
-router.post("/proresources", (req,res) => {
+router.post("/:id/proresources", (req,res) => {
     const data = req.body
+    const {id} = req.params
+
+    Project.findById(id)
+    .then(item => {
+        console.log(item)
+      if (item.id === req.body.projects_id) {
     
     Project.addResourceToProject(data)
     .then(item => {
         console.log(item)
         res.status(201).json(item)  
+    })
+}else {
+    res.status(404).json({ message: 'Could not find project with given id.' })
+}
     })
     .catch(err => {
         res.status(500).json({message: "Failed to add resource to project"})
