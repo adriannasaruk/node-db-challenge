@@ -14,21 +14,22 @@ router.post("/", (req,res) => {
         res.status(500).json({message: "Failed to create project"})
     })
 })
-router.get('/:id', (req, res) => {
-    const { id } = req.params;
+
+// router.get('/:id', (req, res) => {
+//     const { id } = req.params;
   
-    Project.findById(id)
-    .then(item => {
-      if (item) {
-        res.json(item);
-      } else {
-      res.status(404).json({message: "Can not find the given id"})
-      }
-    })
-    .catch(err => {
-      res.status(500).json({ message: 'Failed to get data' });
-    });
-  });
+//     Project.findById(id)
+//     .then(item => {
+//       if (item.length) {
+//         res.json(item);
+//       } else {
+//       res.status(404).json({message: "Can not find the given id"})
+//       }
+//     })
+//     .catch(err => {
+//       res.status(500).json({ message: 'Failed to get data' });
+//     });
+//   });
 
 router.post("/resources", (req,res) => {
     const resourceData = req.body
@@ -49,7 +50,7 @@ router.post('/:id/tasks', (req, res) => {
   
     Project.findById(id)
     .then(item => {
-      if (item) {
+      if (item.length) {
         Project.addTask(taskData, id)
         .then(task => {
           res.status(201).json(task);
